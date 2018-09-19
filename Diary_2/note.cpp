@@ -2,13 +2,12 @@
 #include <cstring>
 
 void Note::setName(std::string text) {
-    text.erase(text.begin() + (int)(text.size()*0.5), text.end());
     text.insert(text.begin(), this->id + 48);
     text.insert(text.begin() + 1, '.');
     text.insert(text.begin() + 2, ' ');
-    for(int i = 0; i < 3; i++) {
+    /*for(int i = 0; i < 3; i++) {
         text.push_back('.');
-    }
+    }*/
     this->name = text;
 }
 

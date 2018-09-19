@@ -19,7 +19,7 @@ Diary::~Diary()
 void Diary::write() { // Запись в лист всех задач
     for(unsigned int i = 0; i < notes.size(); i++) {
         notes[i].id = i;
-        notes[i].setName(notes[i].note);
+        notes[i].setName(notes[i].name);
         QListWidgetItem *item = new QListWidgetItem(QString::fromStdString(notes[i].name), ui->taskList);
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         if(notes[i].completeFlag == true) {
@@ -61,7 +61,7 @@ void Diary::on_saveButton_clicked() // Сохранения заметки - т�
         notes[editFlag].setId(editFlag);
         notes[editFlag].setName(ui->taskText->toPlainText().toStdString());
         notes[editFlag].setNote(ui->taskText->toPlainText().toStdString());
-        notes[editFlag].setTime(ui->timeEdit->text().toStdString());
+        //notes[editFlag].setTime(ui->timeEdit->text().toStdString()); //Удалён
         QDate tmp = notes[editFlag].date;
         notes[editFlag].setDate ( ui->calendar->selectedDate());
         //sorting
@@ -75,7 +75,7 @@ void Diary::on_saveButton_clicked() // Сохранения заметки - т�
         format.setBackground(QBrush(QColor (200,244,99), Qt::SolidPattern));                 // в QColor потом подберем цвет ячейки календаря
         ui->calendar->setDateTextFormat(ui->calendar->selectedDate(), format);
 
-        ui->timeEdit->setTime(QTime::fromString("00:00"));
+        //ui->timeEdit->setTime(QTime::fromString("00:00")); // Удалён
         ui->taskText->clear();
         hide = true;                // Охлаждает обработчик событий на листе
         ui->taskList->clear();      // Здесь
@@ -92,12 +92,12 @@ void Diary::on_saveButton_clicked() // Сохранения заметки - т�
         note.id = notes.size();
         note.setName(ui->taskText->toPlainText().toStdString());
         note.setNote(ui->taskText->toPlainText().toStdString());
-        note.setTime(ui->timeEdit->text().toStdString());
+        //note.setTime(ui->timeEdit->text().toStdString()); // Удалён
         note.setDate(ui->calendar->selectedDate());
         notes.push_back(note);
         //sorting
 
-        ui->timeEdit->setTime(QTime::fromString("00:00"));
+        //ui->timeEdit->setTime(QTime::fromString("00:00")); // Удалён
         ui->taskText->clear();
         hide = true;
         ui->taskList->clear();
@@ -148,7 +148,7 @@ void Diary::on_editButton_clicked()  // Редактирование замет�
         if(ui->taskList->currentItem()) {
             editFlag = getIndex(ui->taskList->currentItem()->text().toStdString());
             ui->taskText->setPlainText(QString::fromStdString(notes[editFlag].note));
-            ui->timeEdit->setTime(QTime::fromString(QString::fromStdString(notes[editFlag].time), "hh:mm"));
+            //ui->timeEdit->setTime(QTime::fromString(QString::fromStdString(notes[editFlag].time), "hh:mm")); // Удалён
             ui->calendar->setSelectedDate(notes[editFlag].date);
         }
     }
@@ -291,4 +291,22 @@ void Diary::on_newNoteButton_clicked()
 void Diary::on_taskList_itemClicked(QListWidgetItem *item)
 {
     ui->taskText->setPlainText(QString::fromStdString(notes[getIndex(item->text().toStdString())].note));
+}
+
+void Diary::on_clearAllButton_clicked()
+{
+    QMessageBox exit(QMessageBox::Question,
+                tr("Очистка ежедневника"),
+                tr("Вы действительно хотите удалить все задачи?"),
+                QMessageBox::Yes | QMessageBox::No,
+                this);
+        exit.setButtonText(QMessageBox::Yes, tr("Действительно хочу!"));
+        exit.setButtonText(QMessageBox::No, tr("НЕТ!"));
+
+    if (exit.exec() == QMessageBox::Yes){
+        notes.clear();
+        notes.resize(0);
+        ui->taskList->clear();
+    }
+
 }
