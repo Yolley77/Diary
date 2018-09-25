@@ -28,9 +28,20 @@ CreateNote::~CreateNote()
 void CreateNote::on_backButton_clicked()
 {
     d->show();
+    if(d->editFlag != -1) d->calendar_color(d->notes[d->editFlag].date);
+
     d->hide = true;
-    d->write();
+    if(d->todayTasksFlag == true && d->hideCompletedFlag == true) {
+        d->writeTodayUnchecked();
+    } else if(d->todayTasksFlag == true) {
+        d->writeToday();
+    } else if(d->hideCompletedFlag == true) {
+        d->writeUnchecked();
+    } else {
+        d->write();
+    }
     d->hide = false;
+    d->editFlag = -1;
     this->close();
 }
 
@@ -60,8 +71,7 @@ void CreateNote::on_saveNoteButton_clicked()
         d->notes[d->editFlag].setTime(ui->timeEdit->time());
         d->notes[d->editFlag].setDate(ui->dateEdit->date());
 
-        d->calendar_color();
-        d->editFlag = -1;
+        std::sort(d->notes.begin(),d->notes.end(),d->ptr);
         on_backButton_clicked();
     }
 
@@ -74,8 +84,10 @@ void CreateNote::on_saveNoteButton_clicked()
         note.setDate(ui->dateEdit->date());
         d->notes.push_back(note);
 
+        d->calendar_color(d->notes[d->notes.size()-1].date);
+        std::sort(d->notes.begin(),d->notes.end(),d->ptr);
         on_backButton_clicked();
-        d->calendar_color();
+
 
         // сохранение в notes - нужно придумать, как передадим заметку в diary
         // нужно придумать как передать дату в календарь (считывать дату последней созданной заметки?)
