@@ -16,7 +16,7 @@ Diary::~Diary()
     delete ui;
 }
 
-bool Diary :: sorting (Note one, Note two)
+bool Diary::sorting (Note one, Note two)
  {
 
    if (one.date < two.date)
