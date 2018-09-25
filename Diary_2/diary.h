@@ -31,7 +31,15 @@ private slots:
 
     void writeUnchecked();
 
+    void writeTodayUnchecked();
+
+    void writeToday();
+
     int getIndex(std::string);
+
+    void calendar_color ();
+
+    bool day_is_empty(QDate &date);
 
     void on_saveButton_clicked();
 
@@ -45,9 +53,7 @@ private slots:
 
     void on_taskList_itemChanged(QListWidgetItem *item);
 
-    void on_calendar_clicked(const QDate &date);
-
-    bool day_is_empty(QDate &date);
+    //void on_calendar_clicked(const QDate &date);
 
     void on_todayTasks_stateChanged(int arg1);
 
@@ -55,7 +61,7 @@ private slots:
 
     void on_exit_triggered();
 
-    void on_timeEdit_timeChanged(const QTime &time);
+    //void on_timeEdit_timeChanged(const QTime &time);
 
     void on_menuButton_clicked();
 
@@ -69,9 +75,11 @@ private slots:
 
 private:
     Ui::Diary *ui;
-    std::vector <Note> notes;   // Все заметки
-    int editFlag = -1;          // Флаг редактирования, содержит номер редактируемой заметки или значение = -1
-    bool hide = false;          // Успокаивает обработчик событий на листе
+    std::vector <Note> notes;           // Все заметки
+    int editFlag = -1;                  // Флаг редактирования, содержит номер редактируемой заметки или значение = -1
+    bool hide = false;                  // Успокаивает обработчик событий на листе
+    bool hideCompletedFlag = false;     // Флаг поднят, при галочке на "Скрыть выполненные"
+    bool todayTasksFlag = false;        // Флаг поднят, при галочке на "Показать сегодняшние"
 };
 
 
