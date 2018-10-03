@@ -29,6 +29,10 @@ void CreateNote::on_backButton_clicked()
 {
     d->show();
     d->hide = true;
+<<<<<<< HEAD
+    d->write();
+    d->hide = false;
+=======
     if(d->todayTasksFlag == true && d->hideCompletedFlag == true) {
         d->writeTodayUnchecked();
     } else if(d->todayTasksFlag == true) {
@@ -40,6 +44,7 @@ void CreateNote::on_backButton_clicked()
     }
     d->hide = false;
     d->editFlag = -1;
+>>>>>>> dev
     this->close();
 }
 
@@ -63,6 +68,10 @@ void CreateNote::on_timeEdit_timeChanged(const QTime &time) // запрет на
 
 void CreateNote::on_saveNoteButton_clicked()
 {
+<<<<<<< HEAD
+
+    if(ui->textEdit->toPlainText() != "" && ui->titleEdit->text() != "") {
+=======
     if(d->editFlag != -1 && ui->textEdit->toPlainText() != "" && ui->titleEdit->text() != "") { // Редактирование существующей заметки
         d->notes[d->editFlag].setName(ui->titleEdit->text().toStdString());
         d->notes[d->editFlag].setNote(ui->textEdit->toPlainText().toStdString());
@@ -74,18 +83,30 @@ void CreateNote::on_saveNoteButton_clicked()
     }
 
     else if(ui->textEdit->toPlainText() != "" && ui->titleEdit->text() != "") {
+>>>>>>> dev
         Note note;
         note.id = d->notes.size();
         note.setName(ui->titleEdit->text().toStdString());
         note.setNote(ui->textEdit->toPlainText().toStdString());
+<<<<<<< HEAD
+        //note.setTime(ui->timeEdit->time());
+=======
         note.setTime(ui->timeEdit->time());
+>>>>>>> dev
         note.setDate(ui->dateEdit->date());
         d->notes.push_back(note);
 
         on_backButton_clicked();
+<<<<<<< HEAD
+=======
         d->calendar_color();
+>>>>>>> dev
 
         // сохранение в notes - нужно придумать, как передадим заметку в diary
         // нужно придумать как передать дату в календарь (считывать дату последней созданной заметки?)
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> dev
 }

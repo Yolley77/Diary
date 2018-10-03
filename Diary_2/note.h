@@ -9,8 +9,13 @@ class Note
 public:
     std::string name;               // Фактическое имя
     std::string note;
+<<<<<<< HEAD
+    std::string time;
+    std::string printedName;
+=======
     QTime time;
     std::string printedName;        // Печатаемое в списке имя (с индексом)
+>>>>>>> dev
     QDate date;
     bool completeFlag = false;      // Галочка у заметки отсутствует
     int id;

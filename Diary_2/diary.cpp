@@ -169,7 +169,11 @@ void Diary::on_deleteButton_clicked()  // Удаление заметки
 
             notes.erase(notes.begin() + getIndex(ui->taskList->currentItem()->text().toStdString()));
             delete ui->taskList->currentItem();
+<<<<<<< HEAD
+            on_clearTextButton_clicked();
+=======
             ui->taskText->clear();
+>>>>>>> dev
 
             // перекрашивание ячейки, если на день нет больше заданий
             if (day_is_empty(tmp)) {
@@ -183,6 +187,16 @@ void Diary::on_deleteButton_clicked()  // Удаление заметки
 
 void Diary::on_editButton_clicked()  // Редактирование заметки
 {
+<<<<<<< HEAD
+    /*if(!hide) {
+        if(ui->taskList->currentItem()) {
+            editFlag = getIndex(ui->taskList->currentItem()->text().toStdString());
+            ui->taskText->setPlainText(QString::fromStdString(notes[editFlag].note));
+            ui->timeEdit->setTime(QTime::fromString(QString::fromStdString(notes[editFlag].time), "hh:mm"));
+            ui->calendar->setSelectedDate(notes[editFlag].date);
+        }
+    }*/
+=======
     if(ui->taskList->currentItem()) {
         editFlag = getIndex(ui->taskList->currentItem()->text().toStdString());
 
@@ -193,6 +207,7 @@ void Diary::on_editButton_clicked()  // Редактирование замет�
 
         on_newNoteButton_clicked();
     }
+>>>>>>> dev
 }
 
 void Diary::on_taskList_itemDoubleClicked()  // Редактирование заметки
@@ -357,37 +372,59 @@ void Diary::on_newNoteButton_clicked()      // Создание новой за�
     this->close();
 }
 
+<<<<<<< HEAD
+void Diary::on_taskList_itemClicked(QListWidgetItem *item)
+=======
 void Diary::on_taskList_itemClicked(QListWidgetItem *item)      // Текс выбранной задачи
+>>>>>>> dev
 {
     ui->taskText->setPlainText(QString::fromStdString(notes[getIndex(item->text().toStdString())].note));
 }
 
+<<<<<<< HEAD
+void Diary::on_clearTextButton_clicked()
+=======
 void Diary::on_clearTextButton_clicked()        // Очистка окна с текстом выбранной задачи
+>>>>>>> dev
 {
     ui->taskText->clear();
 }
 
+<<<<<<< HEAD
+void Diary::on_clearTasksButton_clicked()
+{
+    QMessageBox clear(QMessageBox::Question,
+                tr("Очистка"),
+                tr("Вы действительно хотите очистить еждневник?"),
+=======
 void Diary::on_clearTasksButton_clicked()       // Удаление всех задач
 {
     QMessageBox clear(QMessageBox::Question,
                 tr("Очистка"),
                 tr("Вы действительно хотите очистить ежедневник?"),
+>>>>>>> dev
                 QMessageBox::Yes | QMessageBox::No,
                 this);
         clear.setButtonText(QMessageBox::Yes, tr("Действительно хочу!"));
         clear.setButtonText(QMessageBox::No, tr("НЕТ!"));
 
     if (clear.exec() == QMessageBox::Yes){
+<<<<<<< HEAD
+=======
         for (unsigned int i = 0; i < notes.size(); i++) {
             if (i >=1 && notes[i].date == notes[i-1].date) continue;
             QTextCharFormat format = ui->calendar->dateTextFormat(notes[i].date);
             format.clearBackground();
             ui->calendar->setDateTextFormat(notes[i].date, format);
         }
+>>>>>>> dev
         notes.clear();
         notes.resize(0);
         ui->taskList->clear();
         ui->taskText->clear();
+<<<<<<< HEAD
+=======
 
+>>>>>>> dev
     }
 }
