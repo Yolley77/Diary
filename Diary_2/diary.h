@@ -30,6 +30,10 @@ public:
 friend class CreateNote;
 
 private slots:
+    void setData(int i);
+
+    void getData(int i);
+
     void write();
 
     void writeUnchecked();
@@ -83,6 +87,11 @@ private:
     bool hide = false;                  // Успокаивает обработчик событий на листе
     bool hideCompletedFlag = false;     // Флаг поднят, при галочке на "Скрыть выполненные"
     bool todayTasksFlag = false;        // Флаг поднят, при галочке на "Показать сегодняшние"
+    QString name;
+    QString note;
+    QString date;
+    QString time;
+    QString id;
 };
 
 

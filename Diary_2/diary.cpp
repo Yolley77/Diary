@@ -16,6 +16,22 @@ Diary::~Diary()
     delete ui;
 }
 
+void Diary::setData(int i) {
+    name = QString::fromStdString(notes[i].name);
+    note = QString::fromStdString(notes[i].note);
+    date = notes[i].date.toString("dd.mm.yyyy");
+    time = notes[i].time.toString("hh:mm");
+    id = notes[i].id;
+}
+
+void Diary::getData(int i) {
+    notes[i].name = name.toStdString();
+    notes[i].note = note.toStdString();
+    notes[i].date.fromString(date, "dd.mm.yyyy");
+    notes[i].time.fromString(time, "hh:mm");
+    notes[i].id = id.toInt();
+}
+
 bool Diary::sorting (Note one, Note two)
  {
 
